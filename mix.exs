@@ -70,7 +70,7 @@ defmodule Poptopo.MixProject do
   # See the documentation for `Mix` for more info on aliases.
   defp aliases do
     [
-      setup: ["deps.get", "ecto.setup", "assets.setup", "assets.build"],
+      setup: ["deps.get", "ecto.setup", "cmd --cd assets npm install"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
@@ -78,7 +78,7 @@ defmodule Poptopo.MixProject do
       "assets.build": ["tailwind poptopo", "esbuild poptopo"],
       "assets.deploy": [
         "tailwind poptopo --minify",
-        "esbuild poptopo --minify",
+        "cmd --cd assets node build.js --deploy",
         "phx.digest"
       ]
     ]

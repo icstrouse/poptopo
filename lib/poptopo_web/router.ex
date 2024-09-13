@@ -20,6 +20,8 @@ defmodule PoptopoWeb.Router do
     get "/", PageController, :home
 
     get "/map", MapController, :index
+
+    resources "/tags", TagController
   end
 
   # Other scopes may use custom stacks.

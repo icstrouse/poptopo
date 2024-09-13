@@ -25,7 +25,8 @@ config :poptopo, PoptopoWeb.Endpoint,
   debug_errors: true,
   secret_key_base: "sNrydhHdgN+MKo/vhJM/sLY7QE5iw4rikLerYRZbqom6PKTzsmkewG2U4JquiuRJ",
   watchers: [
-    esbuild: {Esbuild, :install_and_run, [:poptopo, ~w(--sourcemap=inline --watch)]},
+    # esbuild: {Esbuild, :install_and_run, [:poptopo, ~w(--sourcemap=inline --watch)]},
+    node: ["build.js", "--watch", cd: Path.expand("../assets", __DIR__)],
     tailwind: {Tailwind, :install_and_run, [:poptopo, ~w(--watch)]}
   ]
 
