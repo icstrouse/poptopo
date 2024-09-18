@@ -1,4 +1,4 @@
-# Poptopo
+# PopTopo
 
 To start your Phoenix server:
 
