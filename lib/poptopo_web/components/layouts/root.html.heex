@@ -7,8 +7,14 @@
     <.live_title suffix=" · Phoenix Framework">
       <%= assigns[:page_title] || "PopTopo" %>
     </.live_title>
+    
+    <%!-- Something weird going on with npm package and feature placement, so using this --%>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.js"></script>
+    
     <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
     <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}></script>
+
   </head>
 
   <body class="bg-white h-screen">
