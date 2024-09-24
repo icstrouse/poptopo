@@ -1,0 +1,16 @@
+<.header>
+  Track <%= @track.id %>
+  <:subtitle>This is a track record from your database.</:subtitle>
+  <:actions>
+    <.link href={~p"/tracks/#{@track}/edit"}>
+      <.button>Edit track</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Name"><%= @track.name %></:item>
+  <:item title="User"><%= @track.user_id %></:item>
+</.list>
+
+<.back navigate={~p"/tracks"}>Back to tracks</.back>

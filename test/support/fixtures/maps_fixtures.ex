@@ -20,4 +20,19 @@ defmodule Poptopo.MapsFixtures do
 
     tag
   end
+
+  @doc """
+  Generate a track.
+  """
+  def track_fixture(attrs \\ %{}) do
+    {:ok, track} =
+      attrs
+      |> Enum.into(%{
+        name: "some name",
+        user_id: 42
+      })
+      |> Poptopo.Maps.create_track()
+
+    track
+  end
 end
