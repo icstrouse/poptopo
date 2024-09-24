@@ -1,0 +1,24 @@
+<.header>
+  Listing Tracks
+  <:actions>
+    <.link href={~p"/tracks/new"}>
+      <.button>New Track</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table id="tracks" rows={@tracks} row_click={&JS.navigate(~p"/tracks/#{&1}")}>
+  <:col :let={track} label="Name"><%= track.name %></:col>
+  <:col :let={track} label="User"><%= track.user_id %></:col>
+  <:action :let={track}>
+    <div class="sr-only">
+      <.link navigate={~p"/tracks/#{track}"}>Show</.link>
+    </div>
+    <.link navigate={~p"/tracks/#{track}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={track}>
+    <.link href={~p"/tracks/#{track}"} method="delete" data-confirm="Are you sure?">
+      Delete
+    </.link>
+  </:action>
+</.table>
