@@ -22,6 +22,8 @@ defmodule PoptopoWeb.Router do
     get "/map", MapController, :index
 
     resources "/tags", TagController
+
+    resources "/tracks", TrackController
   end
 
   # Other scopes may use custom stacks.
