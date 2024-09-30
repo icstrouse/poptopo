@@ -8,15 +8,30 @@ const tracks = JSON.parse(document.getElementById('map').getAttribute('tracks'))
 const map = new mapboxgl.Map({
   container: 'map',
   // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
-  style: 'mapbox://styles/mapbox/streets-v12',
-  center: [-105, 40],
-  zoom: 13,
+  style: 'mapbox://styles/mapbox/satellite-streets-v12',
+  center: [-105.2952, 39.9603],
+  // center: [-105.27, 40],
+  zoom: 12,
+  pitch: 70,
+  bearing: 315,
+});
+
+// Terrain
+map.on('style.load', () => {
+  map.addSource('mapbox-dem', {
+      'type': 'raster-dem',
+      'url': 'mapbox://mapbox.mapbox-terrain-dem-v1',
+      'tileSize': 512,
+      'maxzoom': 14
+  });
+  // add the DEM source as a terrain layer with exaggerated height
+  map.setTerrain({ 'source': 'mapbox-dem', 'exaggeration': 1.5 });
 });
 
 // Tags
 const markers = tags.map(tag =>
   new mapboxgl.Marker({
-    color: "#555555",
+    color: "#FD4F00",
     draggable: true
   })
     .setLngLat([parseFloat(tag.lng), parseFloat(tag.lat)])
@@ -40,8 +55,8 @@ map.on('load', () => {
         'line-cap': 'round'
       },
       paint: {
-        'line-color': '#555555',
-        'line-width': 8
+        'line-color': '#FD4F00',
+        'line-width': 5
       }
     });
   });
