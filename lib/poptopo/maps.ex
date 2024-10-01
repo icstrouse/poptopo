@@ -7,6 +7,7 @@ defmodule Poptopo.Maps do
   alias Poptopo.Repo
 
   alias Poptopo.Maps.Tag
+  alias Poptopo.Maps.Track
 
   @doc """
   Returns the list of tags.
@@ -17,9 +18,7 @@ defmodule Poptopo.Maps do
       [%Tag{}, ...]
 
   """
-  def list_tags do
-    Repo.all(Tag)
-  end
+  def list_tags, do: Repo.all(Tag)
 
   @doc """
   Gets a single tag.
@@ -132,6 +131,26 @@ defmodule Poptopo.Maps do
 
   """
   def get_track!(id), do: Repo.get!(Track, id)
+
+  @doc """
+  Gets a single track.
+
+  Raises `Ecto.NoResultsError` if the Track does not exist.
+
+  ## Examples
+
+      iex> get_track!(123)
+      %Track{}
+
+      iex> get_track!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_tracks_by_tag(id) do
+    {id_int, _} = Integer.parse(id)
+
+    Repo.all(from t in Track, where: t.tag_id == ^id_int)
+  end
 
   @doc """
   Creates a track.

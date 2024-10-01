@@ -5,6 +5,7 @@ defmodule Poptopo.Maps.Track do
   schema "tracks" do
     field :name, :string
     field :user_id, :integer
+    field :tag_id, :integer
     field :data, :map
 
     timestamps(type: :utc_datetime)
