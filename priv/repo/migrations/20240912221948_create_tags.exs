@@ -7,6 +7,7 @@ defmodule Poptopo.Repo.Migrations.CreateTags do
       add :name, :string
       add :lat, :float
       add :lng, :float
+      add :bearing, :integer
 
       timestamps(type: :utc_datetime)
     end

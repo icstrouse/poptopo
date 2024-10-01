@@ -20,6 +20,7 @@ defmodule PoptopoWeb.Router do
     get "/", PageController, :home
 
     get "/map", MapController, :index
+    get "/map/tags/:id", MapController, :show_tag
 
     resources "/tags", TagController
 

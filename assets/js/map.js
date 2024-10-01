@@ -2,15 +2,24 @@
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiaXN0cm91c2UiLCJhIjoiY20weDA1anBrMDdpOTJpcHNibW5ibnNqdiJ9.E3oVQIz8a3w4Dg1GQ_Ki-w';
 
-const tags = JSON.parse(document.getElementById('map').getAttribute('tags'));
-const tracks = JSON.parse(document.getElementById('map').getAttribute('tracks'));
+const tags = JSON.parse(document.currentScript.getAttribute('tags'));
+const tracks = document.currentScript.getAttribute('tracks') 
+  ? JSON.parse(document.currentScript.getAttribute('tracks'))
+  : [];
+let center
+
+console.log(tracks)
+if (tags.length === 1) {
+  center = [parseFloat(tags[0].lng), parseFloat(tags[0].lat)]
+} else {
+  center = [-105.27, 40]
+}
 
 const map = new mapboxgl.Map({
   container: 'map',
   // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
   style: 'mapbox://styles/mapbox/satellite-streets-v12',
-  center: [-105.2952, 39.9603],
-  // center: [-105.27, 40],
+  center,
   zoom: 12,
   pitch: 70,
   bearing: 315,

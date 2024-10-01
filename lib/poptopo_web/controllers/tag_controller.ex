@@ -28,6 +28,7 @@ defmodule PoptopoWeb.TagController do
 
   def show(conn, %{"id" => id}) do
     tag = Maps.get_tag!(id)
+    IO.inspect(tag)
     render(conn, :show, tag: tag)
   end
 
