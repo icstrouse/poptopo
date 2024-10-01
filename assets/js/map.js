@@ -3,10 +3,12 @@
 mapboxgl.accessToken = 'pk.eyJ1IjoiaXN0cm91c2UiLCJhIjoiY20weDA1anBrMDdpOTJpcHNibW5ibnNqdiJ9.E3oVQIz8a3w4Dg1GQ_Ki-w';
 
 const tags = JSON.parse(document.currentScript.getAttribute('tags'));
-const tracks = JSON.parse(document.currentScript.getAttribute('tracks'));
+const tracks = document.currentScript.getAttribute('tracks') 
+  ? JSON.parse(document.currentScript.getAttribute('tracks'))
+  : [];
 let center
 
-console.log(tags)
+console.log(tracks)
 if (tags.length === 1) {
   center = [parseFloat(tags[0].lng), parseFloat(tags[0].lat)]
 } else {

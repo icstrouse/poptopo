@@ -8,16 +8,14 @@ defmodule PoptopoWeb.MapController do
   @spec index(Plug.Conn.t(), any()) :: Plug.Conn.t()
   def index(conn, _params) do
     {:ok, tags} = Jason.encode(for(tag <- Maps.list_tags(), do: parseTag(tag)))
-    {:ok, tracks} = Jason.encode(for(track <- Maps.list_tracks(), do: parseTrack(track)))
-    IO.inspect(tags)
-    render(conn, :index, tags: tags, tracks: tracks)
+
+    render(conn, :index, tags: tags, tracks: [])
   end
 
   def show_tag(conn, %{"id" => id}) do
     {:ok, tags} = Jason.encode([parseTag(Maps.get_tag!(id))])
     {:ok, tracks} = Jason.encode(for(track <- Maps.get_tracks_by_tag(id), do: parseTrack(track)))
 
-    IO.inspect(tags)
     render(conn, :index, tags: tags, tracks: tracks)
   end
 
