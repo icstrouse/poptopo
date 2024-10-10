@@ -6,7 +6,7 @@ defmodule PoptopoWeb.Router do
     plug :fetch_session
     plug :fetch_live_flash
     plug :put_root_layout, html: {PoptopoWeb.Layouts, :root}
-    plug :protect_from_forgery
+    # plug :protect_from_forgery
     plug :put_secure_browser_headers
   end
 
@@ -25,12 +25,17 @@ defmodule PoptopoWeb.Router do
     resources "/tags", TagController
 
     resources "/tracks", TrackController
+
+    # Create API route for adding a tag
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", PoptopoWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", PoptopoWeb do
+    pipe_through :api
+
+    get "/map/tags", MapController, :tag_test
+    post "/map/tags", MapController, :create_tag
+  end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
   if Application.compile_env(:poptopo, :dev_routes) do
