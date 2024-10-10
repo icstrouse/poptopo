@@ -12,6 +12,19 @@ defmodule PoptopoWeb.MapController do
     render(conn, :index, tags: tags, tracks: [])
   end
 
+  def tag_test(conn, _) do
+    render(conn, :index)
+  end
+
+  def create_tag(conn, params) do
+    IO.puts("Conn: ")
+    IO.inspect(conn)
+    IO.puts("Params: ")
+    IO.inspect(params)
+
+    render(conn)
+  end
+
   def show_tag(conn, %{"id" => id}) do
     {:ok, tags} = Jason.encode([parseTag(Maps.get_tag!(id))])
     {:ok, tracks} = Jason.encode(for(track <- Maps.get_tracks_by_tag(id), do: parseTrack(track)))

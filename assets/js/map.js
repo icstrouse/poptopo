@@ -8,12 +8,13 @@ const tracks = document.currentScript.getAttribute('tracks')
   : [];
 let center
 
-console.log(tracks)
 if (tags.length === 1) {
   center = [parseFloat(tags[0].lng), parseFloat(tags[0].lat)]
 } else {
   center = [-105.27, 40]
 }
+
+const newLngLat = {}
 
 const map = new mapboxgl.Map({
   container: 'map',
@@ -24,6 +25,68 @@ const map = new mapboxgl.Map({
   pitch: 70,
   bearing: 315,
 });
+
+// Event handlers
+map.on('dblclick', (e) => {
+  e.preventDefault();
+  
+  const markerHeight = 50;
+  const markerRadius = 10;
+  const linearOffset = 25;
+  const popupOffsets = {
+      'top': [0, 0],
+      'top-left': [0, 0],
+      'top-right': [0, 0],
+      'bottom': [0, -markerHeight],
+      'bottom-left': [linearOffset, (markerHeight - markerRadius + linearOffset) * -1],
+      'bottom-right': [-linearOffset, (markerHeight - markerRadius + linearOffset) * -1],
+      'left': [markerRadius, (markerHeight - markerRadius) * -1],
+      'right': [-markerRadius, (markerHeight - markerRadius) * -1]
+  };
+
+  // Get rid of this html form crap, and use ajax?
+  const popup = new mapboxgl.Popup({offset: popupOffsets, className: 'my-class'})
+    .setLngLat(e.lngLat)
+    .setHTML(`
+      <form class="popup-form" id="create-tag-form">
+        <h1>Create new marker:</h1>
+        <div class="popup-form">
+          <label for="name">Name: </label>
+          <input type="text" name="name" id="create-tag-name" value="blah" required />
+        </div>
+        <div class="popup-form">
+          <label for="name">Latitude: </label>
+          <input type="text" name="lat" id="create-tag-lat" value=${e.lngLat.lat} required />
+        </div>
+        <div class="popup-form">
+          <label for="name">Longitude: </label>
+          <input type="text" name="lng" id="create-tag-lng" value=${e.lngLat.lng} required />
+        </div>
+        <div class="popup-form">
+          <input type="submit" />
+        </div>
+      </form>
+    `)
+    .setMaxWidth("300px")
+    .addTo(map);
+
+    const createTagForm = document.getElementById('create-tag-form');
+    createTagForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      const name = document.getElementById('create-tag-name').value;
+      const lat = document.getElementById('create-tag-lat').value;
+      const lng = document.getElementById('create-tag-lng').value;
+
+      const request = new Request('/api/map/tags', {
+        method: 'POST',
+        body: JSON.stringify({ name, lat, lng }),
+      });
+
+      fetch(request)
+        .then(res => console.log(res));
+    });
+})
 
 // Terrain
 map.on('style.load', () => {
