@@ -13,7 +13,8 @@ defmodule PoptopoWeb.MapController do
   end
 
   def tag_test(conn, _) do
-    render(conn, :index)
+    tags = Maps.list_tags()
+    render(conn, :index, tags: tags)
   end
 
   def create_tag(conn, params) do
