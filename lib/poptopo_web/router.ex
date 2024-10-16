@@ -33,8 +33,10 @@ defmodule PoptopoWeb.Router do
   scope "/api", PoptopoWeb do
     pipe_through :api
 
-    get "/map/tags", MapController, :tag_test
-    post "/map/tags", MapController, :create_tag
+    # get "/map/tags", MapController, :tag_test
+    # post "/map/tags", MapController, :create_tag
+
+    resources "/tags", TagApiController, except: [:new, :edit]
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development

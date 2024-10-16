@@ -77,10 +77,12 @@ map.on('dblclick', (e) => {
       const name = document.getElementById('create-tag-name').value;
       const lat = document.getElementById('create-tag-lat').value;
       const lng = document.getElementById('create-tag-lng').value;
+      const body = JSON.stringify({ name, lat, lng });
+      console.log({body})
 
       const request = new Request('/api/map/tags', {
         method: 'POST',
-        body: JSON.stringify({ name, lat, lng }),
+        body,
       });
 
       fetch(request)
