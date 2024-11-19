@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
   root "map#index"
-  
+
   get "/map", to: "map#index"
   get "/map/tags/:id", to: "map#tag"
 
-  resources :tracks
   resources :tags
+  resources :tracks
   resource :session
   resources :passwords, param: :token
 
