@@ -3,7 +3,9 @@ class TagsController < ApplicationController
 
   # GET /tags or /tags.json
   def index
-    @tags = Tag.all
+    user_id = session[:user_id]
+
+    @tags = Tag.where(user_id: user_id)
   end
 
   # GET /tags/1 or /tags/1.json

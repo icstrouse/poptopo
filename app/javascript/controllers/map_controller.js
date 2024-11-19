@@ -17,6 +17,10 @@ export default class extends Controller {
     console.log({tags});
     console.log({tracks});
 
+    
+    // if no tags, get location from browser, show temp tag for location
+    
+
     //////////////////////////////////////// MAP ////////////////////////////////////////
     // TODO: get center from browser
     const mapOptions = { center: [-105, 40], zoom: 12, pitch: 70, bearing: 0 };
