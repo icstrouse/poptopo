@@ -17,13 +17,16 @@ export default class extends Controller {
     console.log({tags});
     console.log({tracks});
 
-    
-    // if no tags, get location from browser, show temp tag for location
-    
 
     //////////////////////////////////////// MAP ////////////////////////////////////////
-    // TODO: get center from browser
-    const mapOptions = { center: [-105, 40], zoom: 12, pitch: 70, bearing: 0 };
+    const mapOptions = {
+      center: [0, 0],
+      zoom: 12,
+      pitch: 70,
+      bearing: 0,
+      container: 'map',
+      style: 'mapbox://styles/mapbox/satellite-streets-v12',
+    };
 
     if (tags.length === 1) {
       mapOptions.center = [parseFloat(tags[0].lng), parseFloat(tags[0].lat)];
@@ -37,14 +40,25 @@ export default class extends Controller {
       mapOptions.zoom = 10;
     }
 
-    const map = new mapboxgl.Map({
-      ...mapOptions,
-      container: 'map',
-      style: 'mapbox://styles/mapbox/satellite-streets-v12',
+    const map = new mapboxgl.Map(mapOptions);
+
+    if (!tags.length) {
+      navigator.geolocation.getCurrentPosition(({ coords }) => {
+        map.setCenter([coords.longitude, coords.latitude]);
+      });
+    }
+
+    // Double click for new tag
+    map.on('dblclick', (e) => {
+      e.preventDefault();
+      const title = 'Create a new tag?';
+      const link = `http://localhost:3000/tags/new?lat=${e.lngLat.lat}&lng=${e.lngLat.lng}`;
+      createPopup(e.lngLat, title, link).addTo(map);
     });
 
+
     //////////////////////////////////////// TAGS ////////////////////////////////////////
-    const markers = tags.map(tag => {
+    tags.map(tag => {
       const marker = new mapboxgl.Marker({
         color: "#FD4F00",
         draggable: true
@@ -69,13 +83,6 @@ export default class extends Controller {
       });
     });
 
-    // Double click for new tag
-    map.on('dblclick', (e) => {
-      e.preventDefault();
-      const title = 'Create a new tag?';
-      const link = `http://localhost:3000/tags/new?lat=${e.lngLat.lat}&lng=${e.lngLat.lng}`;
-      createPopup(e.lngLat, title, link).addTo(map);
-    });
 
     //////////////////////////////////////// TRACKS ////////////////////////////////////////
     map.on('load', () => {
@@ -102,6 +109,7 @@ export default class extends Controller {
         });
       }
     });
+
 
     //////////////////////////////////////// TERRAIN ////////////////////////////////////////
     map.on('style.load', () => {
