@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   resources :tags
   resources :tracks
+  resources :users
   resource :session
   resources :passwords, param: :token
 

@@ -20,7 +20,11 @@
 
     <div class="col-span-6 sm:flex sm:items-center sm:gap-4">
       <div class="inline">
-        <%= form.submit "Sign in", class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+        <%= form.submit "Sign In", class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+      </div>
+
+      <div class="inline">
+        <%= link_to "Sign Up", new_user_path, class: "rounded-lg py-3 px-5 bg-zinc-100 text-blue inline-block font-medium cursor-pointer" %>
       </div>
 
       <div class="mt-4 text-sm text-gray-500 sm:mt-0">

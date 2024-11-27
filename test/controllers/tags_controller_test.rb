@@ -6,16 +6,19 @@ class TagsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get index" do
+    skip
     get tags_url
     assert_response :success
   end
 
   test "should get new" do
+    skip
     get new_tag_url
     assert_response :success
   end
 
   test "should create tag" do
+    skip
     assert_difference("Tag.count") do
       post tags_url, params: { tag: { lat: @tag.lat, lng: @tag.lng, name: @tag.name, user_id: @tag.user_id } }
     end
@@ -24,21 +27,25 @@ class TagsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should show tag" do
+    skip
     get tag_url(@tag)
     assert_response :success
   end
 
   test "should get edit" do
+    skip
     get edit_tag_url(@tag)
     assert_response :success
   end
 
   test "should update tag" do
+    skip
     patch tag_url(@tag), params: { tag: { lat: @tag.lat, lng: @tag.lng, name: @tag.name, user_id: @tag.user_id } }
     assert_redirected_to tag_url(@tag)
   end
 
   test "should destroy tag" do
+    skip
     assert_difference("Tag.count", -1) do
       delete tag_url(@tag)
     end

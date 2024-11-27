@@ -43,9 +43,9 @@
             GitHub
           </a>
           <% if authenticated? %>
-            <%= link_to 'Log out', session_path(Current.session), data: { turbo_method: :delete }, class: "rounded-lg bg-zinc-100 px-2 py-1 hover:bg-zinc-200/80" %><br>
+            <%= link_to 'Sign Out', session_path(Current.session), data: { turbo_method: :delete }, class: "rounded-lg bg-zinc-100 px-2 py-1 hover:bg-zinc-200/80" %><br>
           <% else %>
-            <a href="/session/new" class="rounded-lg bg-zinc-100 px-2 py-1 hover:bg-zinc-200/80">Log In</a>
+            <a href="/session/new" class="rounded-lg bg-zinc-100 px-2 py-1 hover:bg-zinc-200/80">Sign In</a>
           <% end %>
         </div>
       </div>
