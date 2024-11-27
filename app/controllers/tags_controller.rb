@@ -15,7 +15,7 @@ class TagsController < ApplicationController
   # GET /tags/new
   def new
     user_id = session[:user_id]
-    
+
     @tag = Tag.new
   end
 
