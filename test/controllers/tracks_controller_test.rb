@@ -3,6 +3,8 @@ require "test_helper"
 class TracksControllerTest < ActionDispatch::IntegrationTest
   setup do
     @track = tracks(:one)
+    @user = users(:one)
+    sign_in @user
   end
 
   test "should get index" do
@@ -44,5 +46,11 @@ class TracksControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_redirected_to tracks_url
+  end
+
+  private
+
+  def sign_in(user)
+    post session_url, params: { email_address: user.email_address, password: "password" }
   end
 end
