@@ -48,10 +48,4 @@ class TagsControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to tags_url
   end
-
-  private
-
-  def sign_in(user)
-    post session_url, params: { email_address: user.email_address, password: "password" }
-  end
 end
