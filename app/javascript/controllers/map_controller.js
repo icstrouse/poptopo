@@ -51,7 +51,7 @@ export default class extends Controller {
     map.on('dblclick', (e) => {
       e.preventDefault();
       const title = 'Create a new tag?';
-      const link = `http://localhost:3000/tags/new?lat=${e.lngLat.lat}&lng=${e.lngLat.lng}`;
+      const link = `/tags/new?lat=${e.lngLat.lat}&lng=${e.lngLat.lng}`;
       createPopup(e.lngLat, title, link).addTo(map);
     });
 
@@ -65,9 +65,9 @@ export default class extends Controller {
         .setLngLat([parseFloat(tag.lng), parseFloat(tag.lat)])
         .setPopup(new mapboxgl.Popup().setHTML(`
           <p>${tag.name}</p>
-          <p><a href="http://localhost:3000/map/tags/${tag.id}">See on Map</a></p>
-          <p><a href="http://localhost:3000/tags/${tag.id}">Edit Tag Info</a></p>
-          <p><a href="http://localhost:3000/tracks/new?tag_id=${tag.id}">Add Track</a></p>
+          <p><a href="/map/tags/${tag.id}">See on Map</a></p>
+          <p><a href="/tags/${tag.id}">Edit Tag Info</a></p>
+          <p><a href="/tracks/new?tag_id=${tag.id}">Add Track</a></p>
         `))
         .addTo(map);
         
@@ -75,7 +75,7 @@ export default class extends Controller {
       marker.on('dragend', () => {
         const lngLat = marker.getLngLat();
         const title = 'Move tag location?';
-        const link = `http://localhost:3000/tags/${tag.id}/edit?lat=${lngLat.lat}&lng=${lngLat.lng}`;
+        const link = `/tags/${tag.id}/edit?lat=${lngLat.lat}&lng=${lngLat.lng}`;
         createPopup(lngLat, title, link).addTo(map);
 
         // TODO: return tag to original location if canceled
