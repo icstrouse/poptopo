@@ -16,12 +16,6 @@ p "Created User"
 
 Tag.create!([
   {
-    name: "Neighborhood",
-    lat: 40.012205045754826,
-    lng: -104.99360544227315,
-    user_id: 1
-  },
-  {
     name: "Mt Sanitas",
     lat: 40.03433843235101,
     lng: -105.30543607571478,

@@ -29,14 +29,14 @@ export default class extends Controller {
 
     if (tags.length === 1) {
       mapOptions.center = [parseFloat(tags[0].lng), parseFloat(tags[0].lat)];
-      mapOptions.zoom = 13;
+      mapOptions.zoom = 12;
     } else if (tags.length > 1) {
       const lat = tags.reduce((acc, cur) => parseFloat(cur.lat) + acc, 0.0) / tags.length;
       const lng = tags.reduce((acc, cur) => parseFloat(cur.lng) + acc, 0.0) / tags.length;
       
       mapOptions.center = [lng, lat];
       // TODO: calculate zoom based on multiple tags
-      mapOptions.zoom = 10;
+      mapOptions.zoom = 11;
     }
 
     const map = new mapboxgl.Map(mapOptions);
@@ -87,6 +87,7 @@ export default class extends Controller {
     map.on('load', () => {
       if (tracks) {
         tracks.forEach(({ data }) => {
+          console.log('loading track: ', data)
           map.addSource('route', {
             type: 'geojson',
             data: JSON.parse(data),

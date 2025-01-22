@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :passwords, param: :token
 
   get "/map", to: "map#index"
-  get "/map/tags/:id", to: "map#tag"
+  get "/map/tags/:id", to: "map#tag", as: "map_tags_path"
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
