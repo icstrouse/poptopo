@@ -1,0 +1,2 @@
+class TagTrack < ApplicationRecord
+end

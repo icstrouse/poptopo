@@ -6,6 +6,13 @@
 
     <%= render @track %>
 
+    <strong class="font-medium mb-1">Tags:</strong>
+    <% @tags.each do |tag| %>
+      <ul>
+        <li><%= link_to tag.name, tag_path(tag) %></li>
+      </ul>
+    <% end %>
+
     <%= link_to "Edit this track", edit_track_path(@track), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
     <%= link_to "Back to tracks", tracks_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
     <div class="inline-block ml-2">

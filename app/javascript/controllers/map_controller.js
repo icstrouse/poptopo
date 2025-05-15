@@ -3,6 +3,7 @@ import mapboxgl from 'mapbox-gl';
 
 export default class extends Controller {
   connect() {
+    console.log('Map controller connected');
     mapboxgl.accessToken = 'pk.eyJ1IjoiaXN0cm91c2UiLCJhIjoiY20zMXd5OGJ2MTI5YTJqcHpjeWZqazNxOCJ9.eIFUQ6YXkHt6kmKb_gLaQw';
 
     const mapElement = document.getElementById('map');
@@ -14,36 +15,39 @@ export default class extends Controller {
       tags = [JSON.parse(mapElement.dataset.tag)];
       tracks = JSON.parse(mapElement.dataset.tracks)
     }
-    console.log({tags});
-    console.log({tracks});
 
-    //////////////////////////////////////// MAP ////////////////////////////////////////
+    console.log('tags: ', tags);
+    console.log('tracks: ', tracks);
+
+    //////////////////////////////////// MAP ///////////////////////////////////
     const mapOptions = {
       center: [0, 0],
-      zoom: 12,
-      pitch: 70,
-      bearing: 0,
+      zoom: 13,
+      pitch: 72,
+      bearing: 270,
       container: 'map',
       style: 'mapbox://styles/mapbox/satellite-streets-v12',
     };
 
     if (tags.length === 1) {
       mapOptions.center = [parseFloat(tags[0].lng), parseFloat(tags[0].lat)];
-      mapOptions.zoom = 12;
     } else if (tags.length > 1) {
       const lat = tags.reduce((acc, cur) => parseFloat(cur.lat) + acc, 0.0) / tags.length;
       const lng = tags.reduce((acc, cur) => parseFloat(cur.lng) + acc, 0.0) / tags.length;
-      
+
       mapOptions.center = [lng, lat];
-      // TODO: calculate zoom based on multiple tags
-      mapOptions.zoom = 11;
     }
 
     const map = new mapboxgl.Map(mapOptions);
 
     if (!tags.length) {
       navigator.geolocation.getCurrentPosition(({ coords }) => {
-        map.setCenter([coords.longitude, coords.latitude]);
+        const lngLat = [coords.longitude, coords.latitude];
+        map.setCenter(lngLat);
+
+        const title = 'You are here. Create a new tag?';
+        const link = `/tags/new?lat=${coords.latitude}&lng=${coords.longitude}`;
+        createPopup(lngLat, title, link).addTo(map);
       });
     }
 
@@ -56,13 +60,12 @@ export default class extends Controller {
     });
 
 
-    //////////////////////////////////////// TAGS ////////////////////////////////////////
+    /////////////////////////////////// TAGS ///////////////////////////////////
     tags.map(tag => {
       const marker = new mapboxgl.Marker({
         color: "#FD4F00",
         draggable: true
-      })
-        .setLngLat([parseFloat(tag.lng), parseFloat(tag.lat)])
+      }).setLngLat([parseFloat(tag.lng), parseFloat(tag.lat)])
         .setPopup(new mapboxgl.Popup().setHTML(`
           <p>${tag.name}</p>
           <p><a href="/map/tags/${tag.id}">See on Map</a></p>
@@ -83,7 +86,7 @@ export default class extends Controller {
     });
 
 
-    //////////////////////////////////////// TRACKS ////////////////////////////////////////
+    ////////////////////////////////// TRACKS //////////////////////////////////
     map.on('load', () => {
       if (tracks) {
         tracks.forEach(({ data }) => {
@@ -111,7 +114,7 @@ export default class extends Controller {
     });
 
 
-    //////////////////////////////////////// TERRAIN ////////////////////////////////////////
+    ////////////////////////////////// TERRAIN /////////////////////////////////
     map.on('style.load', () => {
       map.addSource('mapbox-dem', {
           'type': 'raster-dem',
@@ -122,11 +125,20 @@ export default class extends Controller {
       // add the DEM source as a terrain layer with exaggerated height
       map.setTerrain({ 'source': 'mapbox-dem', 'exaggeration': 1.5 });
     });
+    
+
+    ////////////////////////////////// CONTROLS /////////////////////////////////
+    document.getElementById('pitch')
+      .addEventListener('mousemove', function () { map.setPitch(this.value) });
+    document.getElementById('bearing')
+      .addEventListener('mousemove', function () { map.setBearing(this.value) });
+    document.getElementById('zoom')
+      .addEventListener('mousemove', function () { map.setZoom(this.value) });
   }
 }
 
 
-//////////////////////////////////////// UTILS ////////////////////////////////////////
+///////////////////////////////////// UTILS ////////////////////////////////////
 function createPopup(lngLat, title, link) {
   const markerHeight = 50;
   const markerRadius = 10;
@@ -147,8 +159,9 @@ function createPopup(lngLat, title, link) {
     .setHTML(`
       <div>
         <h1>${title}</h1>
-        <a href="${link}">GO</a>
+        <a href="${link}">OK</a>
       </div>
     `)
     .setMaxWidth('300px');
 }
+

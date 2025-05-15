@@ -1,4 +1,5 @@
 class TracksController < ApplicationController
+  allow_unauthenticated_access only: [ :index, :show ]
   before_action :set_track, only: %i[ show edit update destroy ]
 
   # GET /tracks or /tracks.json
@@ -8,6 +9,8 @@ class TracksController < ApplicationController
 
   # GET /tracks/1 or /tracks/1.json
   def show
+    @email_address = User.find(@track.user_id).email_address
+    @tags = Tag.where(track_id: @track.id)
   end
 
   # GET /tracks/new

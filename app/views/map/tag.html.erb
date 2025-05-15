@@ -1,3 +1,23 @@
 <link href='https://api.mapbox.com/mapbox-gl-js/v3.7.0/mapbox-gl.css' rel='stylesheet' />
 
-<div id="map" data-controller="map" data-tag="<%= @tag %>" data-tracks="<%= @tracks %>"></div>
+<div data-controller="map">
+  <h1>Map Tag</h1>
+  <div id="map" data-tag="<%= @tag %>" data-tracks="<%= @tracks %>"></div>
+
+    <div class="map-overlay top w-auto">
+    <div class="map-overlay-inner">
+      <fieldset>
+        <label for="pitch">Pitch</label>
+        <input type="range" id="pitch" name="pitch" min="0" max="90" value="72" />
+      </fieldset>
+      <fieldset>
+        <label for="bearing">Bearing</label>
+        <input type="range" id="bearing" name="bearing" min="0" max="360" value="270" />
+      </fieldset>
+      <fieldset>
+        <label for="zoom">Zoom</label>
+        <input type="range" id="zoom" name="zoom" min="7" max="16" value="13" />
+      </fieldset>
+    </div>
+  </div>
+<div>

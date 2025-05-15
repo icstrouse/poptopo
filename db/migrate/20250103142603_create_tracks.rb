@@ -3,8 +3,7 @@ class CreateTracks < ActiveRecord::Migration[8.0]
     create_table :tracks do |t|
       t.string :name
       t.json :data
-      t.references :user, null: false, foreign_key: true
-      t.references :tag, null: false, foreign_key: true
+      t.references :user, null: true, foreign_key: true
 
       t.timestamps
     end

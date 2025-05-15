@@ -39,16 +39,19 @@
           <a href="/tags" class="hover:text-zinc-700">
             Tags
           </a>
+          <a href="/tracks" class="hover:text-zinc-700">
+            Tracks
+          </a>
           <a href="https://github.com/icstrouse/poptopo" target="_blank" class="hover:text-zinc-700">
             GitHub
           </a>
-            <%= link_to "Log in", new_session_path unless authenticated? %>
-            <%= button_to "Log out", session_path, method: :delete if authenticated? %>
+          <%= link_to "Log In", new_session_path unless authenticated? %>
+          <%= button_to "Log Out", session_path, method: :delete if authenticated? %>
         </div>
       </div>
     </header>
 
-    <main class="container mx-auto mt-28 px-5 flex">
+    <main class="container mx-auto mt-28 px-5 flex flex-row">
       <%= yield %>
     </main>
   </body>

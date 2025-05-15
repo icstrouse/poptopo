@@ -1,18 +1,25 @@
 class TagsController < ApplicationController
+  allow_unauthenticated_access only: [ :index, :show ]
   before_action :set_tag, only: %i[ show edit update destroy ]
 
   # GET /tags or /tags.json
   def index
-    @tags = Tag.all
+    user_id = session["user_id"]
+    # add serializer for user's names
+
+    @tags = Tag.where(user_id: user_id)
   end
 
   # GET /tags/1 or /tags/1.json
   def show
+    @email_address = User.find(@tag.user_id).email_address
+    @tracks = Track.where(tag_id: @tag.id)
   end
 
   # GET /tags/new
   def new
     @tag = Tag.new
+    @tag.user_id = Current.user.id
   end
 
   # GET /tags/1/edit

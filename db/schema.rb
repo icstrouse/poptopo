@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_03_142603) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_12_014635) do
   create_table "sessions", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "ip_address"
@@ -24,20 +24,27 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_142603) do
     t.string "name"
     t.float "lat"
     t.float "lng"
-    t.integer "user_id", null: false
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_tags_on_user_id"
   end
 
+  create_table "tags_tracks", force: :cascade do |t|
+    t.integer "tag_id", null: false
+    t.integer "track_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tag_id"], name: "index_tags_tracks_on_tag_id"
+    t.index ["track_id"], name: "index_tags_tracks_on_track_id"
+  end
+
   create_table "tracks", force: :cascade do |t|
     t.string "name"
     t.json "data"
-    t.integer "user_id", null: false
-    t.integer "tag_id", null: false
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["tag_id"], name: "index_tracks_on_tag_id"
     t.index ["user_id"], name: "index_tracks_on_user_id"
   end
 
@@ -53,6 +60,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_142603) do
 
   add_foreign_key "sessions", "users"
   add_foreign_key "tags", "users"
-  add_foreign_key "tracks", "tags"
+  add_foreign_key "tags_tracks", "tags"
+  add_foreign_key "tags_tracks", "tracks"
   add_foreign_key "tracks", "users"
 end
