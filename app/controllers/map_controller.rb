@@ -21,7 +21,7 @@ class MapController < ApplicationController
   # TODO:
   def track
     # TODO: authorize user for track
-    @track = Track.where(params[:id]).to_json
+    @track = Track.find(params[:id]).to_json
 
     # @tags = Tag.where().to_json
   end
