@@ -7,7 +7,11 @@
     <%= render @tag %>
 
     <strong class="font-medium mb-1">Tracks:</strong>
-
+    <% @tracks.each do |track| %>
+      <ul>
+        <li><%= link_to track.name, track_path(track) %></li>
+      </ul>
+    <% end %>
 
     <%= link_to "Edit this tag", edit_tag_path(@tag), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
     <%= link_to "Map this tag", "/map/tags/#{@tag.id}", class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>

@@ -45,7 +45,6 @@ group :development, :test do
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
 
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
-  gem "brakeman", require: false
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
@@ -63,3 +62,5 @@ group :test do
 end
 
 gem "tailwindcss-rails", "~> 3.1"
+
+gem "brakeman", "~> 7.0"
