@@ -10,7 +10,7 @@ class TracksController < ApplicationController
   # GET /tracks/1 or /tracks/1.json
   def show
     @email_address = User.find(@track.user_id).email_address
-    @tags = Tag.where(track_id: @track.id)
+    # @tags = Tag.where(track_id: @track.id)
   end
 
   # GET /tracks/new

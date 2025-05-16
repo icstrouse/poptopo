@@ -19,7 +19,7 @@ class TracksControllerTest < ActionDispatch::IntegrationTest
 
   test "should create track" do
     assert_difference("Track.count") do
-      post tracks_url, params: { track: { data: @track.data, name: @track.name, tag_id: @track.tag_id, user_id: @track.user_id } }
+      post tracks_url, params: { track: { data: @track.data, name: @track.name, user_id: @track.user_id } }
     end
 
     assert_redirected_to track_url(Track.last)
@@ -36,7 +36,7 @@ class TracksControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update track" do
-    patch track_url(@track), params: { track: { data: @track.data, name: @track.name, tag_id: @track.tag_id, user_id: @track.user_id } }
+    patch track_url(@track), params: { track: { data: @track.data, name: @track.name, user_id: @track.user_id } }
     assert_redirected_to track_url(@track)
   end
 

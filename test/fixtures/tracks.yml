@@ -4,10 +4,8 @@ one:
   name: MyString
   data: 
   user: one
-  tag: one
 
 two:
   name: MyString
   data: 
   user: two
-  tag: two

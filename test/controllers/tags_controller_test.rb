@@ -41,7 +41,6 @@ class TagsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy tag" do
-    skip
     assert_difference("Tag.count", -1) do
       delete tag_url(@tag)
     end

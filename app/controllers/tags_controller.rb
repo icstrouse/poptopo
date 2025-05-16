@@ -13,7 +13,7 @@ class TagsController < ApplicationController
   # GET /tags/1 or /tags/1.json
   def show
     @email_address = User.find(@tag.user_id).email_address
-    @tracks = Track.where(tag_id: @tag.id)
+    # @tracks = Track.where(tag_id: @tag.id)
   end
 
   # GET /tags/new
