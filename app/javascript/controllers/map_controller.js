@@ -40,16 +40,16 @@ export default class extends Controller {
 
     const map = new mapboxgl.Map(mapOptions);
 
-    if (!tags.length) {
-      navigator.geolocation.getCurrentPosition(({ coords }) => {
-        const lngLat = [coords.longitude, coords.latitude];
-        map.setCenter(lngLat);
+    // if (!tags.length) {
+    //   navigator.geolocation.getCurrentPosition(({ coords }) => {
+    //     const lngLat = [coords.longitude, coords.latitude];
+    //     map.setCenter(lngLat);
 
-        const title = 'You are here. Create a new tag?';
-        const link = `/tags/new?lat=${coords.latitude}&lng=${coords.longitude}`;
-        createPopup(lngLat, title, link).addTo(map);
-      });
-    }
+    //     const title = 'You are here. Create a new tag?';
+    //     const link = `/tags/new?lat=${coords.latitude}&lng=${coords.longitude}`;
+    //     createPopup(lngLat, title, link).addTo(map);
+    //   });
+    // }
 
     // Double click for new tag
     map.on('dblclick', (e) => {
